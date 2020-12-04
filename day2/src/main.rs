@@ -64,14 +64,14 @@ fn main() {
         .expect("Failed to parse input");
 
     println!(
-        "Valid passwords in part 1 count: {}",
+        "Valid password count in part 1: {}",
         passwords
             .iter()
             .filter(|password| password.char_count_in_range())
             .count()
     );
     println!(
-        "Valid passwords in part 2 count: {}",
+        "Valid password count in part 2: {}",
         passwords
             .iter()
             .filter(|password| password.char_exclusive_at_positions())
