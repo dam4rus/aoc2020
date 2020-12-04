@@ -13,9 +13,9 @@ lazy_static! {
 }
 
 pub struct Password {
-    pub char_policy_range: RangeInclusive<u32>,
-    pub char_policy: char,
-    pub password: String,
+    char_policy_range: RangeInclusive<u32>,
+    char_policy: char,
+    password: String,
 }
 
 impl Password {
@@ -39,7 +39,7 @@ impl Password {
         self.char_policy_range.contains(&(char_count as u32))
     }
 
-    pub fn is_valid(&self) -> bool {
+    pub fn char_exclusive_at_positions(&self) -> bool {
         let first_char = self
             .password
             .chars()
@@ -54,20 +54,6 @@ impl Password {
     }
 }
 
-fn part1(passwords: &[Password]) -> usize {
-    passwords
-        .iter()
-        .filter(|password| password.char_count_in_range())
-        .count()
-}
-
-fn part2(passwords: &[Password]) -> usize {
-    passwords
-        .iter()
-        .filter(|password| password.is_valid())
-        .count()
-}
-
 fn main() {
     let file = File::open("input.txt").expect("Failed to open input.txt");
     let buf_reader = BufReader::new(file);
@@ -77,6 +63,18 @@ fn main() {
         .collect::<Option<Vec<_>>>()
         .expect("Failed to parse input");
 
-    println!("Valid passwords in part 1 count: {}", part1(&passwords));
-    println!("Valid passwords in part 2 count: {}", part2(&passwords));
+    println!(
+        "Valid passwords in part 1 count: {}",
+        passwords
+            .iter()
+            .filter(|password| password.char_count_in_range())
+            .count()
+    );
+    println!(
+        "Valid passwords in part 2 count: {}",
+        passwords
+            .iter()
+            .filter(|password| password.char_exclusive_at_positions())
+            .count()
+    );
 }
