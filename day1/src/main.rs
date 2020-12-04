@@ -16,7 +16,10 @@ const INPUT: [i32; 200] = [
 
 fn part1() -> Option<i32> {
     for (i, first_value) in INPUT.iter().enumerate() {
-        if let Some(second_value) = INPUT[i + 1..].iter().find(|value| *value + first_value == 2020) {
+        if let Some(second_value) = INPUT[i + 1..]
+            .iter()
+            .find(|value| *value + first_value == 2020)
+        {
             return Some(first_value * second_value);
         }
     }
@@ -27,8 +30,11 @@ fn part1() -> Option<i32> {
 fn part2() -> Option<i32> {
     for (i, first_value) in INPUT.iter().enumerate() {
         for (j, second_value) in INPUT[i + 1..].iter().enumerate() {
-            if let Some(third_value) = INPUT[j + 1..].iter().find(|value| *value + first_value + second_value == 2020) {
-                return Some(first_value * second_value * third_value)
+            if let Some(third_value) = INPUT[j + 1..]
+                .iter()
+                .find(|value| *value + first_value + second_value == 2020)
+            {
+                return Some(first_value * second_value * third_value);
             }
         }
     }
